@@ -1,7 +1,8 @@
-import numpy as np
-from utils import getDistance
 import itertools
 
+import numpy as np
+
+from utils import getDistance
 
 
 class SingleObjectStreakPostprocessor:
@@ -31,6 +32,7 @@ class SingleObjectStreakPostprocessor:
             return self.streakPosition
         else:
             return position
+
 
 class BallMatcher:
     def __init__(self):

@@ -1,13 +1,15 @@
 import numpy as np
-from jugglingdataloader import JugglingDataLoader
-from utils import handleTensorflowSession
-from losses import grid_loss_with_hands
 from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten, Reshape, LeakyReLU, BatchNormalization
 from keras import regularizers
 from keras.callbacks import ModelCheckpoint
+
+from jugglingdataloader import JugglingDataLoader
+from utils import handleTensorflowSession
+from losses import grid_loss_with_hands
+
 
 handleTensorflowSession(memoryLimit=0.6)
 

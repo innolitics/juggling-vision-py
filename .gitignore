@@ -1,3 +1,5 @@
 _*
+.DS_Store
+.python-version
 *.h5
 *.csv

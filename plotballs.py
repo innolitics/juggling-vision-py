@@ -3,6 +3,8 @@ import argparse
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.ndimage.filters import gaussian_filter
+from scipy.signal import find_peaks
 from tqdm import tqdm
 
 from gridmodel import GridModel
@@ -34,12 +36,39 @@ if __name__ == "__main__":
             pbar.update()
     cap.release()
 
-    fig, ax = plt.subplots()
-    ax.set_xlabel("frame")
-    ax.set_ylabel("y position")
+    fig, (ax1, ax2, ax3) = plt.subplots(3)
     xs = np.arange(ball_ys.shape[0])
-    for i in range(ball_ys.shape[1]):
-        ax.plot(xs, ball_ys[:, i], "-o", label=f"Ball {i}")
-    ax.legend()
+    ball_ys_blurred = gaussian_filter(ball_ys, sigma=(2, 0))
+
+    ax1.set_title("Original ball positions")
+    ax1.set_xlabel("Frame")
+    ax1.set_ylabel("y position")
+    for i in range(args.n_balls):
+        ax1.plot(xs, ball_ys[:, i], "-o", label=f"Ball {i}")
+    ax1.legend()
+
+    ax2.set_title("Blurred ball positions")
+    ax2.set_xlabel("Frame")
+    ax2.set_ylabel("y position")
+    for i in range(args.n_balls):
+        ax2.plot(xs, ball_ys_blurred[:, i], "-o", label=f"Ball {i}")
+    ax2.legend()
+
+    ax3.set_title("Ball troughs")
+    ax3.set_xlabel("Frame")
+    ax3.set_ylabel("y position")
+    for i in range(args.n_balls):
+        ax3.plot(xs, ball_ys_blurred[:, i], "--", label=f"Ball {i}")
+    for i in range(args.n_balls):
+        troughs, _ = find_peaks(-ball_ys_blurred[:, i])
+        ax3.plot(
+            xs[troughs],
+            ball_ys_blurred[troughs, i],
+            "o",
+            label=f"Ball {i} troughs",
+            color=f"C{i}",
+        )
+    ax3.legend()
+
     plt.show()
 

@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from keras.models import load_model
 from keras.utils.generic_utils import CustomObjectScope
+
 from losses import grid_loss_with_hands
 from preprocessing import MovingAveragePreprocessor
 from postprocessing import BallsAndHandsPostprocessor, gridToBallsAndHands, flipGrid
@@ -10,7 +11,7 @@ from postprocessing import BallsAndHandsPostprocessor, gridToBallsAndHands, flip
 class GridModel:
     def __init__(self, filename, nBalls=3, preprocessType="SUBMOVAVG", flip=False, postprocess=True):
         self.filename = filename
-        self.preprocessType=preprocessType
+        self.preprocessType = preprocessType
         self.flip = flip
         self.postprocess = postprocess
         self.model = load_model(filename, custom_objects={'grid_loss_with_hands': grid_loss_with_hands})

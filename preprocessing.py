@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class MovingAveragePreprocessor:
     def __init__(self, updateFactor=0.150):
         self.updateFactor = updateFactor
@@ -17,6 +18,7 @@ class MovingAveragePreprocessor:
         returnFrame = returnFrame - np.min(returnFrame)
         returnFrame = returnFrame / (np.max(returnFrame) + 0.00001)
         return returnFrame
+
 
 def normalizeFrame(frame):
     frame = frame.astype(np.float32)

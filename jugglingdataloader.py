@@ -1,10 +1,12 @@
 import csv
+from random import shuffle
+import random
+
 import cv2
 import numpy as np
-from random import shuffle
 from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import Sequence
-import random
+
 
 class JugglingDataLoader(Sequence):
     def __init__(self, shape=(64,64), timesteps=1, batch_size=8, gridShape=(15,15), expressFactor=1, imageGenerator=ImageDataGenerator(), dataType='BGR', nballs=[1,2,3]):

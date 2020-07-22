@@ -1,5 +1,7 @@
+#!/usr/bin/env python3
 import numpy as np
 import cv2
+
 from gridmodel import GridModel
 from utils import handleTensorflowSession
 from testutils import ScoreKeeper
@@ -8,6 +10,7 @@ from jugglingdataloader import JugglingDataLoader
 
 
 handleTensorflowSession(memoryLimit=0.2)
+
 
 def runTest(model):
     model.summary()
